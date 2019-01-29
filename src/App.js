@@ -7,17 +7,27 @@ class App extends Component {
   constructor(props){
 
     super(props);
-    this.state = {isBtnPressed: false};
+    this.state = {isBtnPressed: false,
+                  plannedEvent: ' '}
 
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
 
   }
 
-  handleClick() {
-    this.setState(state => ({
-      isBtnPressed: !state.isBtnPressed
-    }));
+  handleClick = () =>  {
+    this.setState({
+      isBtnPressed: !this.state.isBtnPressed
+    });
+    return(this.state.eventPlanned);
+  }
+
+  handleChange(event){
+
+    this.setState({plannedEvent: event.target.plannedEvent});
+
   }
 
 
@@ -25,22 +35,14 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Your Daily Planner</h1>
-        <Boxes />
+        <div>
+       <input type="text" value={this.state.plannedEvent} onChange={this.handleChange} />
+       <button onClick={this.handleClick}>Submit</button>
+       </div>
       </div>
     );
   }
 }
   
-  class Boxes extends Component{
-
-    render(){
-      return (
-        <div>
-       <input type="text" />
-       <button onClick={this.handleClick}>Submit</button>
-       </div>
-      );
-    }
-  }
 
 export default App;
